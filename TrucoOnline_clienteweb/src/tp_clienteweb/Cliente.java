@@ -17,7 +17,7 @@ public class Cliente {
 	{
 		new Cliente();
 	}
-	// puto el que lee
+	// puto el que lee 2
 public boolean getStub() {
     	
     	try {
