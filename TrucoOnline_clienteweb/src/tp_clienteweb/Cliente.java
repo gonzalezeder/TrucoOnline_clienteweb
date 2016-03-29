@@ -35,7 +35,7 @@ public boolean getStub() {
     		try {
     			/*Busco por número de jugador*/
     			jugador = manejoJugadores.obtengoJugador(1);
-    			System.out.println(jugador.getNombre());
+    			System.out.println(jugador.getApodo());
     			/*Listo todos los jugadores*/
     			System.out.println("\nListo Todos los Jugadores.");
     			Set<JugadorDTO> jugadores = manejoJugadores.obtengoJugadores();
