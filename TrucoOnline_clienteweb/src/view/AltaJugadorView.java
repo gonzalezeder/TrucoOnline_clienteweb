@@ -12,34 +12,44 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
- 
+
 @ManagedBean
-public class LoginView {
-     
+public class AltaJugadorView {
+
 	TDAManejoDatos manejoJugadores;
-	
+
 	private static final long serialVersionUID = 5443351151396868724L;
-	
-    private String username;
-     
-    private String password;
- 
-    public String getUsername() {
-        return username;
-    }
- 
-    public void setUsername(String username) {
-        this.username = username;
-    }
- 
-    public String getPassword() {
-        return password;
-    }
- 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
+
+	private String mail;
+
+	private String apodo;
+
+	private String password;
+
+	public String getApodo() {
+		return apodo;
+	}
+
+	public void setApodo(String apodo) {
+		this.apodo = apodo;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String username) {
+		this.mail = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean getStub() {
 
 		try {
@@ -52,7 +62,6 @@ public class LoginView {
 		return false;
 	}
 
-   
 	public void login(ActionEvent event) {
 		RequestContext context = RequestContext.getCurrentInstance();
 		FacesMessage message = null;
@@ -60,17 +69,17 @@ public class LoginView {
 
 		if (getStub()) {
 
-			if (username != null && password != null) {
+			if (mail != null && password != null) {
 
 				try {
-					loggedIn = manejoJugadores.validarLogin(username, password);
+					loggedIn = manejoJugadores.validarLogin(mail, password);
 				} catch (RemoteException e1) {
 					loggedIn = false;
 					message = new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Loggin Errors", "Invalid credentials");
 				}
 				message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Bienvenido:", username);
+						"Bienvenido:", mail);
 				try {
 					FacesContext context2 = FacesContext.getCurrentInstance();
 					context2.getExternalContext().redirect("home.xhtml");

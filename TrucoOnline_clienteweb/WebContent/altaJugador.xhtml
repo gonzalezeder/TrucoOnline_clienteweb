@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<script type="text/javascript">
+	function handleLoginRequest(xhr, status, args) {
+		if (args.validationFailed || !args.loggedIn) {
+			PF('dlg').jq.effect("shake", {
+				times : 5
+			}, 100);
+		} else {
+			PF('dlg').hide();
+			$('#loginLink').fadeOut();
+		}
+	}
+	
+	function handleMessage(data) {
+		$('.display').text(data);
+		}
+	
+</script>
+</h:head>
+<h:body>
+<h:form>
+
+
+		<p:stack icon="/resources/images/stack.png" expanded="false">
+			<p:menuitem value="Libre Individual"
+				icon="/resources/images/4copas.png" url="#" />
+			<p:menuitem value="Libre en Pareja"
+				icon="/resources/images/pareja_libre.png" url="#" />
+			<p:menuitem value="Crear Sala Grupo"
+				icon="/resources/images/sala_grupo.png" url="#" />
+			<p:menuitem value="Registrar Jugador"
+				icon="/resources/images/new_player.png" url="/altaJugador.xhtml" />
+			<p:menuitem value="Home" icon="/resources/images/home.png" url="#" />
+		</p:stack>
+
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="username" value="Mail:" />
+			<p:inputText id="username" value="#{altaJugadorView.mail}"
+				required="true" label="mail">
+				 <f:validateLength minimum="3" maximum="15" />
+				 <f:validator validatorId="mailValidator"/>
+				  <f:ajax event="blur" render="mailMessage" /> 
+				 </p:inputText>
+				<h:message id="mailMessage" for="username"></h:message> 
+			<h:outputLabel for="apodo" value="Apodo:" />
+			<p:inputText id="apodo" value="#{altaJugadorView.apodo}"
+				required="true" label="mail" />
+
+			<h:outputLabel for="password" value="Contraseña: *" />
+			<p:password id="password" value="#{altaJugadorView.password}"
+				feedback="true"  label="Clave" required="true" />
+			<f:facet name="footer">
+				<p:commandButton value="Nuevo Jugador" update="growl"
+					actionListener="#{altaJugadorView.login}"
+					oncomplete="handleLoginRequest(xhr, status, args)" />
+			</f:facet>
+		</h:panelGrid>
+
+	</h:form>
+</h:body>
+
+</html>
